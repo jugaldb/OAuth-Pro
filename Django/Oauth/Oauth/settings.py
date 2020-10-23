@@ -31,10 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'githubOauth',
     'linkedinOauth',
     'facebookOauth',
     'twitterOauth',
     'googleOauth',
+    'spotifyOauth',
 
     #rest framework
 
@@ -46,7 +48,6 @@ INSTALLED_APPS = [
     'allauth',
 
     #allauth
-
     'rest_framework.authtoken',
     'allauth.account',
     'allauth.socialaccount',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.linkedin_oauth2',
+    'allauth.socialaccount.providers.github',
 
     #django contrib apps
     'django.contrib.admin',
@@ -110,11 +112,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         # for browsable api view usage
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
     ),
 
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
 }
 
 
@@ -153,6 +156,13 @@ SOCIALACCOUNT_PROVIDERS = {
             'picture-url',
             'public-profile-url',
         ]
+    },
+     'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
     }
 }
 
